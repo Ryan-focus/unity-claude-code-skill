@@ -1,211 +1,367 @@
 ---
-name: unity-claude-code-setup
+name: unity-claude-code-assistant
 description: >
-  Claude Code のインストール、MCP（Model Context Protocol）経由での Unity Editor への接続、
-  および統合の動作確認までをステップバイステップでガイドします。Unity Official MCP
-  （com.unity.ai.assistant）とコミュニティの Coplay MCP の両方をカバーしています。
-  Windows と macOS に対応しています。このスキルは、ユーザーが Claude Code と Unity の
-  セットアップ、AI アシスタントと Unity Editor の接続、Unity MCP のインストール、
-  Coplay MCP のセットアップ、または自然言語を使って Claude Code 経由で Unity のシーン、
-  GameObject、アセット、スクリプトを操作したいと言及した場合にご利用ください。
-  また、AI 支援による Unity 開発の前提条件、Claude Code + Unity 接続のトラブル
-  シューティング、Unity MCP と Coplay MCP の比較についてユーザーが質問した場合にも
-  トリガーされます。
+  Complete Unity AI development assistant. Covers one-click MCP setup,
+  auto-diagnosis, and hands-on Unity operations via MCP tools.
+  Trigger this skill when the user mentions: Unity + Claude Code setup,
+  connecting AI to Unity Editor, Unity MCP installation, Coplay MCP,
+  controlling Unity scenes/GameObjects/assets/scripts through Claude Code,
+  AI-assisted Unity development, building Unity games with AI,
+  creating Unity scenes or projects with natural language,
+  or troubleshooting Claude Code + Unity connections.
 ---
 
-# Unity + Claude Code + MCP セットアップガイド
+# Unity + Claude Code — AI 開発アシスタント
 
-このスキルは、Claude Code を MCP 経由で Unity Editor に接続し、自然言語でシーン、アセット、スクリプトなどを操作できるようにする手順を案内します。
-
-**2つのメインパス** があります。ユーザーの状況に合ったものを選んでください：
-
-| パス | 使用する場合 |
-|------|-------------|
-| **Path A – Unity Official MCP** | Unity 6+ で `com.unity.ai.assistant` パッケージを使用。Unity 公式サポート。 |
-| **Path B – Coplay MCP（コミュニティ）** | Unity 2022+。より多くのツール、迅速なイテレーション、コミュニティ主導。 |
-
-ユーザーが迷っている場合は、使用している Unity のバージョンを確認してください。Unity 6+ ユーザーはどちらのパスも使用可能です。Unity 2022〜2023 ユーザーは Path B を使用してください。
+あなたは MCP 経由で Unity Editor に接続された Unity 開発アシスタントです。
+このスキルは**セットアップ**、**自動診断**、**直接的な Unity 操作**をカバーします。
 
 ---
 
-## 共通の前提条件
+## 1. クイックセットアップ（ワンクリック）
 
-どちらのパスでも、以下が準備されていることを確認してください：
-
-### 1. Claude Code のインストール
-
-Claude Code には有料の Anthropic プラン（Pro、Max、Team、または Enterprise）が必要です。
+MCP 接続がまだ設定されていない場合、自動セットアップスクリプトを使用してください：
 
 **macOS / Linux:**
 
 ```bash
-curl -fsSL https://claude.ai/install.sh | bash
+bash auto_setup.sh --auto          # 最適なパスを自動検出
+bash auto_setup.sh --path coplay   # Coplay MCP を強制指定
+bash auto_setup.sh --path unity    # Unity Official MCP を強制指定
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-irm https://claude.ai/install.ps1 | iex
+.\auto_setup.ps1 -Auto             # 最適なパスを自動検出
+.\auto_setup.ps1 -Path coplay      # Coplay MCP を強制指定
+.\auto_setup.ps1 -Path unity       # Unity Official MCP を強制指定
 ```
 
-> Windows では **Git for Windows** のインストールも必要です。
+**オプション：**
 
-**確認：**
+- `--force` / `-Force` — 既存の設定を削除してから再追加
+- `--timeout <ms>` / `-Timeout <ms>` — カスタムタイムアウト（デフォルト: 720000）
 
-```bash
-claude --version
-```
+### Path A vs Path B
 
-初回起動後、`claude` を実行してブラウザのプロンプトに従い認証を行ってください。
+| | Path A — Unity Official MCP | Path B — Coplay MCP |
+|---|---|---|
+| パッケージ | `com.unity.ai.assistant` | `coplay-mcp-server` |
+| Unity | 6+ | 2022+ |
+| ツール | 少ないが公式サポート | より多くのツール、コミュニティ主導 |
+| セットアップ | Relay バイナリ + 接続承認 | Python 3.11 + uvx |
 
-### 2. Unity のインストール確認
-
-- Path A には **Unity 6（6000.0）** 以降が必要です。
-- Path B には **Unity 2022** 以降が必要です。
+ユーザーが迷っている場合は、Unity バージョンを確認してください。Unity 6+ → どちらのパスも可。Unity 2022–2023 → Path B。
 
 ---
 
-## Path A – Unity Official MCP
+## 2. 手動セットアップ
 
-### A1. AI Assistant パッケージのインストール
+自動セットアップスクリプトが失敗した場合にのみ使用してください。
 
-Unity で **Window > Package Manager** を開き、**+** をクリックして **Add package by name** を選択し、以下を入力します：
+### 共通の前提条件
 
-```text
-com.unity.ai.assistant
-```
+1. **Claude Code** — 有料の Anthropic プランが必要
 
-### A2. Unity Bridge の起動
-
-1. **Edit > Project Settings > AI > Unity MCP** に移動します。
-2. **Unity Bridge** のステータスが **Running**（緑色）であることを確認します。
-3. **Stopped** と表示されている場合は、**Start** をクリックします。
-
-relay binary は `~/.unity/relay/` に自動的にインストールされます。
-
-### A3. Claude Code の設定
-
-**オプション 1 – 自動設定（推奨）：**
-Unity の **Project Settings > AI > Unity MCP > Integrations** で **Claude Code** を見つけて **Configure** をクリックします。
-
-**オプション 2 – 手動設定：**
-
-ターミナルで以下を実行します：
-
-```bash
-claude mcp add unity-mcp -- <RELAY_PATH> --mcp
-```
-
-`<RELAY_PATH>` をお使いのプラットフォームに応じた正しいパスに置き換えてください：
-
-| プラットフォーム | relay パス |
-|----------|-----------|
-| macOS (Apple Silicon) | `~/.unity/relay/relay_mac_arm64.app/Contents/MacOS/relay_mac_arm64` |
-| macOS (Intel) | `~/.unity/relay/relay_mac_x64.app/Contents/MacOS/relay_mac_x64` |
-| Windows | `%USERPROFILE%\.unity\relay\relay_win.exe` |
-
-### A4. 接続の承認
-
-1. Unity に戻り：**Edit > Project Settings > AI > Unity MCP** を開きます。
-2. **Pending Connections** の項目を確認し、**Accept** をクリックします。
-
-以前承認したクライアントは自動的に再接続されます。
-
-### A5. テスト
-
-Claude Code で以下を試してみてください：
-
-```text
-Read the Unity console messages and summarize any warnings or errors.
-```
-
-Claude が `Unity_ReadConsole` を呼び出せれば、セットアップは完了です。
-
----
-
-## Path B – Coplay MCP（コミュニティ）
-
-### B1. Python 3.11+ のインストール
-
-Coplay の MCP サーバーには Python 3.11 以上が必要です。
-
-**確認：**
-
-```bash
-python3 --version   # macOS/Linux
-python --version    # Windows
-```
-
-インストールされていない場合：
-
-- macOS: `brew install python@3.11`
-- Windows: <https://www.python.org/downloads/> からダウンロード
-
-### B2. Coplay Unity パッケージのインストール
-
-1. Unity プロジェクトを開きます。
-2. **Window > Package Manager > + > Add package from git URL** を選択します。
-3. 以下を入力します：
-
-   ```text
-   https://github.com/CoplayDev/unity-plugin.git#beta
+   ```bash
+   # macOS/Linux
+   curl -fsSL https://claude.ai/install.sh | bash
+   # Windows
+   irm https://claude.ai/install.ps1 | iex
    ```
 
-4. Coplay が有効になり、Editor で実行されていることを確認します。
+2. **Unity** — Path A は Unity 6+ が必要、Path B は Unity 2022+ が必要
 
-### B3. Claude Code に Coplay MCP を追加
+### Path A — Unity Official MCP
 
-```bash
-claude mcp add \
-  --scope user \
-  --transport stdio \
-  coplay-mcp \
-  --env MCP_TOOL_TIMEOUT=720000 \
-  -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
-```
+1. Package Manager から `com.unity.ai.assistant` をインストール
+2. Edit > Project Settings > AI > Unity MCP → Bridge が **Running** であることを確認
+3. Claude Code を設定：
 
-> Windows では PowerShell で実行してください。`uvx` が見つからない場合は、先に
-> `pip install uv` でインストールしてください。
+   ```bash
+   claude mcp add unity-mcp -- <RELAY_PATH> --mcp
+   ```
 
-### B4. 確認
+   | プラットフォーム | Relay パス |
+   |----------|-----------|
+   | macOS ARM | `~/.unity/relay/relay_mac_arm64.app/Contents/MacOS/relay_mac_arm64` |
+   | macOS Intel | `~/.unity/relay/relay_mac_x64.app/Contents/MacOS/relay_mac_x64` |
+   | Windows | `%USERPROFILE%\.unity\relay\relay_win.exe` |
+
+4. Unity で：保留中の接続を承認
+
+### Path B — Coplay MCP
+
+1. Python >= 3.11 をインストール
+2. Unity で：git URL からパッケージを追加 `https://github.com/CoplayDev/unity-plugin.git#beta`
+3. Claude Code を設定：
+
+   ```bash
+   claude mcp add --scope user --transport stdio coplay-mcp \
+     --env MCP_TOOL_TIMEOUT=720000 \
+     -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
+   ```
+
+---
+
+## 3. 自動診断
+
+ユーザーが接続の問題を報告したり、何かがうまくいかない場合、
+次の診断手順に従ってください：
+
+### ステップ 1 — MCP 設定の確認
 
 ```bash
 claude mcp list
 ```
 
-一覧に `coplay-mcp` が表示されるはずです。
+対象の MCP サーバー（unity-mcp または coplay-mcp）がリストにあることを確認します。
 
-### B5. テスト
+### ステップ 2 — MCP 接続のテスト
 
-Unity プロジェクトを開いた状態で、Claude Code で以下を試してください：
+シンプルなツール呼び出しを試します：
 
-```text
-List all open Unity editors
+- **Coplay:** `list_editors` — 開いている Unity インスタンスを返すはず
+- **Unity Official:** `Unity_ReadConsole` — コンソールメッセージを返すはず
+
+### ステップ 3 — よくある障害パターン
+
+| 症状 | 考えられる原因 | 解決策 |
+|---------|-------------|-----|
+| MCP がリストにない | 設定されていない | `auto_setup.sh --auto` を実行 |
+| 「connecting」のまま | サーバーが起動していない | Claude Code を再起動; Unity が開いていることを確認 |
+| 接続拒否 | Unity Bridge が停止 | Project Settings > AI > Unity MCP > Start |
+| タイムアウトエラー | 操作が遅すぎる | `MCP_TOOL_TIMEOUT` を 1800000 に増加 |
+| "python not found" | Python < 3.11 またはインストールされていない | Python >= 3.11 をインストール |
+| "uvx not found" | uv がインストールされていない | `pip install uv` |
+| ツール呼び出し失敗 | 間違ったツール名 | `list available MCP tools` を実行して正確な名前を確認 |
+| macOS PATH の問題 | Finder から Unity を起動 | ターミナルから Unity Hub を起動: `open -a "Unity Hub"` |
+
+### ステップ 4 — 完全リセット
+
+何をしてもうまくいかない場合、削除して再追加：
+
+```bash
+claude mcp remove coplay-mcp    # または unity-mcp
+bash auto_setup.sh --path coplay --force
 ```
 
-次に以下を試してください：
+追加の詳細は `troubleshooting.md` を参照してください。
+
+---
+
+## 4. Unity 操作 — MCP ツールの使い方
+
+MCP 接続がアクティブな場合、Unity を直接制御できます。
+完全なツールリファレンスとコードテンプレートは `unity_operations.md` を参照してください。
+
+### 主要な原則
+
+1. **まずツールを確認する。** 各セッションの開始時に、利用可能な MCP
+   ツールをリストして、どの操作がサポートされているかを把握します。
+2. **複雑な作業には run_code / ExecuteCode を使用する。** 専用ツールが
+   存在しない場合、C# コードを書いてエディタで直接実行します。
+3. **各アクション後に確認する。** オブジェクトの作成や変更後、
+   コンソールとヒエラルキーをチェックします。
+4. **操作をバッチ処理する。** 複数のオブジェクトの場合、ツールを繰り返し
+   呼び出す代わりに、1つの C# スクリプトを書きます。
+
+### シーン管理
+
+**新しいシーンを作成：**
 
 ```text
-Create a red cube at position (0, 1, 0) in the current Unity scene
+1. execute_menu_item("File/New Scene")
+2. run_code で保存:
+   EditorSceneManager.SaveScene(
+       SceneManager.GetActiveScene(), "Assets/Scenes/<Name>.unity");
+```
+
+**シーンの内容を取得：**
+
+```text
+get_scene_hierarchy  →  完全なオブジェクトツリーを返す
+```
+
+**シーンを保存：**
+
+```text
+execute_menu_item("File/Save")
+```
+
+### GameObject 操作
+
+**プリミティブを作成（Cube, Sphere, Capsule, Plane, Cylinder）：**
+
+```text
+create_primitive("Cube", name="MyCube")
+set_component_property("MyCube", "Transform", "position", {x:0, y:1, z:0})
+```
+
+**ヒエラルキーを作成：**
+
+```text
+1. 親を作成: create_gameobject("Player")
+2. 子を作成して Player の下に配置
+3. 各子の Transform を設定
+```
+
+**コンポーネントを追加：**
+
+```text
+add_component("Player", "Rigidbody")
+add_component("Player", "CharacterController")
+set_component_property("Player", "Rigidbody", "mass", 2.0)
+```
+
+### スクリプト開発
+
+ユーザーがスクリプトの作成を要求した場合、完全な C# ファイルを生成し、
+`create_script` または `run_code` を使用してプロジェクトに書き込みます：
+
+```csharp
+// Assets/Scripts/ にスクリプトファイルを書き込み
+run_code(@"
+    System.IO.Directory.CreateDirectory(""Assets/Scripts"");
+    System.IO.File.WriteAllText(""Assets/Scripts/PlayerController.cs"", @""
+using UnityEngine;
+public class PlayerController : MonoBehaviour {
+    [SerializeField] float speed = 5f;
+    void Update() {
+        float h = Input.GetAxis(""Horizontal"");
+        float v = Input.GetAxis(""Vertical"");
+        transform.Translate(new Vector3(h, 0, v) * speed * Time.deltaTime);
+    }
+}
+"");
+    AssetDatabase.Refresh();
+");
+```
+
+一般的なスクリプトパターン（完全なテンプレートは `unity_operations.md` を参照）：
+
+- **PlayerController** — CharacterController を使った WASD 移動
+- **GameManager** — DontDestroyOnLoad のシングルトンパターン
+- **HealthBarUI** — カラーグラデーション付きスライダーベースの UI
+- **CameraFollow** — オフセット付きスムーズ追従
+- **SceneLoader** — ローディング画面付き非同期シーン遷移
+
+### マテリアルとビジュアル
+
+```csharp
+// 色付きマテリアルを作成して割り当て
+run_code(@"
+    var obj = GameObject.Find(""MyCube"");
+    var mat = new Material(Shader.Find(""Standard""));
+    mat.color = Color.red;
+    obj.GetComponent<Renderer>().material = mat;
+");
+```
+
+### アセット構成
+
+プロフェッショナルなプロジェクト構成をセットアップ：
+
+```csharp
+run_code(@"
+    string[] folders = {
+        ""Assets/Scripts"", ""Assets/Scenes"", ""Assets/Prefabs"",
+        ""Assets/Materials"", ""Assets/Textures"", ""Assets/Audio"",
+        ""Assets/Animations"", ""Assets/Fonts"", ""Assets/Resources""
+    };
+    foreach (var f in folders) {
+        var parts = f.Split('/');
+        var parent = parts[0];
+        for (int i = 1; i < parts.Length; i++) {
+            var next = parent + ""/"" + parts[i];
+            if (!AssetDatabase.IsValidFolder(next))
+                AssetDatabase.CreateFolder(parent, parts[i]);
+            parent = next;
+        }
+    }
+    AssetDatabase.Refresh();
+");
+```
+
+### デバッグ
+
+**コンソールメッセージを読む：**
+
+```text
+get_console_logs  または  Unity_ReadConsole
+→ エラーと警告を要約し、修正を提案
+```
+
+**不足しているスクリプトを見つける：**
+
+```csharp
+run_code(@"
+    foreach (var go in Resources.FindObjectsOfTypeAll<GameObject>()) {
+        foreach (var c in go.GetComponents<Component>()) {
+            if (c == null) Debug.LogWarning($""Missing script on: {go.name}"");
+        }
+    }
+");
 ```
 
 ---
 
-## トラブルシューティング
+## 5. ラピッドプロトタイプワークフロー
 
-よくある問題については `references/troubleshooting.md` を参照してください。以下の内容が含まれています：
+ユーザーが素早く何かを作りたい場合、以下の構造化されたワークフローに従ってください。
 
-- `claude` コマンドが見つからない
-- MCP サーバーが「connecting」のまま停止する
-- Unity が MCP クライアントを検出しない
-- Finder から起動した場合の macOS PATH の問題
-- 大規模な操作でのタイムアウトエラー
-- Windows 固有の PowerShell の問題
+### 3D ボール転がしゲーム
+
+1. シーン "GameLevel" を作成
+2. 床を作成（Plane、スケール 5x5）
+3. プレイヤーを作成（Sphere + Rigidbody、y=0.5）
+4. BallController.cs を作成 — 力ベースの WASD 移動
+5. 収集アイテムを作成（トリガーコライダー付きの小さなキューブ）
+6. Collectible.cs を作成 — OnTriggerEnter → 破棄 + スコア追加
+7. ScoreManager.cs シングルトンを作成
+8. スコアテキスト付き UI Canvas を作成
+9. スムーズ追従用の CameraFollow.cs を追加
+10. ライティングとスカイボックスをセットアップ
+
+### 2D プラットフォーマー
+
+1. 2D シーンを作成
+2. 地面スプライト / タイルマップを作成
+3. プレイヤーを作成（スプライト + Rigidbody2D + BoxCollider2D）
+4. PlatformController2D.cs を作成 — 移動 + ジャンプ + 地面チェック
+5. さまざまな高さにプラットフォームを作成
+6. CameraFollow2D.cs を追加
+7. プラットフォームの下にデスゾーンを追加
+8. スコア/ライフ UI を追加
+
+### FPS プロトタイプ
+
+1. 地形または床のあるシーンを作成
+2. プレイヤーを作成（Capsule + CharacterController + 子として Camera）
+3. FPSController.cs を作成 — WASD + マウスルック
+4. シンプルな障害物を作成（壁、木箱）
+5. 射撃メカニクスを追加（レイキャストまたはプロジェクタイル）
+6. 体力を持つ敵ターゲットを追加
+7. クロスヘア UI と弾薬カウンターを追加
+
+### UI メニューシステム
+
+1. Canvas を作成（Screen Space - Overlay）
+2. タイトルテキストを作成（TextMeshPro）
+3. ボタンを作成：Start、Settings、Quit
+4. ボタンハンドラー用の MainMenuController.cs を作成
+5. ボリュームスライダー付き設定パネルを作成
+6. シーン遷移ロジックを作成
 
 ---
 
-## セットアップ後のヒント
+## 6. セットアップ後のヒント
 
-- Unity プロジェクトのルートで `claude /init` を実行し、プロジェクトの規約を Claude Code に伝える `CLAUDE.md` を生成してください。
-- Claude Code で `@` シンボルを使って特定のファイルを参照できます。例：`@PlayerController.cs`
-- Coplay MCP で長時間の操作によるタイムアウトエラーが発生する場合は、`MCP_TOOL_TIMEOUT` の値を増やしてください（デフォルトは 720000ms = 12分）。
+- Unity プロジェクトのルートで `claude /init` を実行して、プロジェクトの規約を
+  記述する `CLAUDE.md` を生成してください。
+- Claude Code で `@` を使ってファイルを参照: `@PlayerController.cs`
+- 大規模な操作では `MCP_TOOL_TIMEOUT` を増やしてください（デフォルト 12 分）。
+- シーンを頻繁に保存 — `execute_menu_item("File/Save")` で実行。
+- 専用の MCP ツールがない操作には、`run_code` / `ExecuteCode` を
+  万能ツールとして使用してください。
