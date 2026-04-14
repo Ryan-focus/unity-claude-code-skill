@@ -155,7 +155,7 @@ claude mcp add \
   --transport stdio \
   coplay-mcp \
   --env MCP_TOOL_TIMEOUT=720000 \
-  -- uvx --python ">=3.11" coplay-mcp-server@latest
+  -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
 ```
 
 > On Windows, run this in PowerShell. If `uvx` is not found, install it with

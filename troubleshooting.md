@@ -43,7 +43,7 @@ npm config get prefix
    claude mcp remove coplay-mcp
    claude mcp add --scope user --transport stdio coplay-mcp \
      --env MCP_TOOL_TIMEOUT=720000 \
-     -- uvx --python ">=3.11" coplay-mcp-server@latest
+     -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
    ```
 3. Restart Claude Code.
 
@@ -82,7 +82,7 @@ value:
 claude mcp remove coplay-mcp
 claude mcp add --scope user --transport stdio coplay-mcp \
   --env MCP_TOOL_TIMEOUT=1800000 \
-  -- uvx --python ">=3.11" coplay-mcp-server@latest
+  -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
 ```
 (1800000ms = 30 minutes)
 
