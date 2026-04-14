@@ -7,8 +7,18 @@ exclude = [
   "127\\.0\\.0\\.1",
 ]
 
-# Accept 429 (rate limiting) as valid
+# Accept 200 and 429 (rate limiting) as valid
 accept = [200, 429]
 
 # Don't check mailto links
-exclude_mail = true
+include_mail = false
+
+# Retry failed requests
+max_retries = 3
+
+# Timeout per request (seconds)
+timeout = 20
+
+# Skip external links to avoid flaky CI from network issues.
+# External URLs are manually verified during PR review.
+offline = true

@@ -106,4 +106,4 @@ bash ~/.claude/skills/unity-claude-code-setup/scripts/verify_setup.sh
 
 ## ライセンス
 
-MIT — [LICENSE](LICENSE) を参照してください。
+MIT — [LICENSE](../../LICENSE) を参照してください。
