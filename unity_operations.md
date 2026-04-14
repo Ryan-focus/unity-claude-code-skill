@@ -38,7 +38,7 @@ after the MCP connection is established.
 
 ### Create a New Scene
 
-```
+```text
 User: "Create a new scene called MainMenu"
 
 Steps:
@@ -48,7 +48,8 @@ Steps:
 ```
 
 **Coplay MCP approach:**
-```
+
+```text
 execute_menu_item("File/New Scene")
 run_code("
     UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
@@ -59,7 +60,8 @@ run_code("
 ```
 
 **Unity Official MCP approach:**
-```
+
+```text
 Unity_ExecuteMenuItem("File/New Scene")
 Unity_ExecuteCode("
     EditorSceneManager.SaveScene(
@@ -71,7 +73,7 @@ Unity_ExecuteCode("
 
 ### List All Objects in Scene
 
-```
+```text
 User: "What's in the current scene?"
 
 Steps:
@@ -81,7 +83,7 @@ Steps:
 
 ### Save Current Scene
 
-```
+```text
 execute_menu_item("File/Save") or Ctrl+S equivalent
 ```
 
@@ -91,7 +93,7 @@ execute_menu_item("File/Save") or Ctrl+S equivalent
 
 ### Create Basic Objects
 
-```
+```text
 User: "Create a red cube at (0, 2, 0)"
 
 Steps:
@@ -102,7 +104,8 @@ Steps:
 ```
 
 **Coplay MCP approach:**
-```
+
+```text
 create_primitive("Cube", name="RedCube")
 set_component_property("RedCube", "Transform", "position", {"x":0, "y":2, "z":0})
 run_code("
@@ -116,7 +119,7 @@ run_code("
 
 ### Create Complex Hierarchies
 
-```
+```text
 User: "Create a player character with a body, head, and two arms"
 
 Steps:
@@ -130,7 +133,7 @@ Steps:
 
 ### Add Components
 
-```
+```text
 User: "Add a Rigidbody to the Player"
 
 Steps:
@@ -145,7 +148,7 @@ Steps:
 
 ### Create a MonoBehaviour Script
 
-```
+```text
 User: "Create a PlayerController script that handles WASD movement"
 
 Steps:
@@ -155,6 +158,7 @@ Steps:
 ```
 
 **Template — PlayerController.cs:**
+
 ```csharp
 using UnityEngine;
 
@@ -188,11 +192,12 @@ public class PlayerController : MonoBehaviour
 
 ### Create a Singleton Manager
 
-```
+```text
 User: "Create a GameManager singleton"
 ```
 
 **Template — GameManager.cs:**
+
 ```csharp
 using UnityEngine;
 
@@ -218,11 +223,12 @@ public class GameManager : MonoBehaviour
 
 ### Create a UI Controller
 
-```
+```text
 User: "Create a health bar UI script"
 ```
 
 **Template — HealthBarUI.cs:**
+
 ```csharp
 using UnityEngine;
 using UnityEngine.UI;
@@ -249,7 +255,7 @@ public class HealthBarUI : MonoBehaviour
 
 ### Create and Assign Materials
 
-```
+```text
 User: "Make the floor a wooden texture"
 
 Approach (via run_code / ExecuteCode):
@@ -259,6 +265,7 @@ Approach (via run_code / ExecuteCode):
 ```
 
 **Code pattern:**
+
 ```csharp
 var floor = GameObject.Find("Floor");
 var renderer = floor.GetComponent<Renderer>();
@@ -269,7 +276,7 @@ renderer.material = mat;
 
 ### Setup Basic Lighting
 
-```
+```text
 User: "Set up a basic 3-point lighting"
 
 Steps:
@@ -291,7 +298,7 @@ RenderSettings.skybox = Resources.Load<Material>("Skybox/DefaultSkybox");
 
 ### Create Folder Structure
 
-```
+```text
 User: "Set up a standard project folder structure"
 
 Steps (via run_code / ExecuteCode):
@@ -346,7 +353,7 @@ PrefabUtility.SaveAsPrefabAsset(obj, "Assets/Prefabs/Player.prefab");
 
 ### Read Console Logs
 
-```
+```text
 User: "Are there any errors in Unity?"
 
 Steps:
@@ -357,13 +364,13 @@ Steps:
 
 ### Clear Console
 
-```
+```text
 execute_menu_item("Edit/Clear Console")
 ```
 
 ### Check Project for Common Issues
 
-```
+```text
 User: "Check my project for problems"
 
 Diagnostic checklist:
@@ -425,7 +432,7 @@ BuildPipeline.BuildPlayer(
 
 ### Rapid Prototype: Simple 3D Game
 
-```
+```text
 User: "Help me prototype a simple ball-rolling game"
 
 Workflow:
@@ -443,7 +450,7 @@ Workflow:
 
 ### Rapid Prototype: 2D Platformer
 
-```
+```text
 User: "Create a basic 2D platformer"
 
 Workflow:
@@ -458,7 +465,7 @@ Workflow:
 
 ### UI Menu System
 
-```
+```text
 User: "Create a main menu"
 
 Workflow:

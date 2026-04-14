@@ -41,12 +41,17 @@ usage() {
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --path)
+            if [[ $# -lt 2 ]]; then fail "--path requires a value (coplay or unity)"; exit 1; fi
             MCP_PATH="$2"; shift 2 ;;
         --auto)
             MCP_PATH="auto"; shift ;;
         --timeout)
+            if [[ $# -lt 2 ]]; then fail "--timeout requires a value"; exit 1; fi
+            if ! [[ "$2" =~ ^[0-9]+$ ]]; then fail "--timeout must be a positive integer (got: $2)"; exit 1; fi
             MCP_TIMEOUT="$2"; shift 2 ;;
         --coplay-version)
+            if [[ $# -lt 2 ]]; then fail "--coplay-version requires a value"; exit 1; fi
+            if ! [[ "$2" =~ ^[a-zA-Z0-9._-]+$ ]]; then fail "--coplay-version contains invalid characters (got: $2)"; exit 1; fi
             COPLAY_VERSION="$2"; shift 2 ;;
         --force)
             FORCE=true; shift ;;
@@ -200,9 +205,9 @@ setup_coplay() {
     else
         info "uvx not found. Installing uv..."
         if command -v pip3 &>/dev/null; then
-            pip3 install uv 2>/dev/null
+            pip3 install --user uv 2>/dev/null
         elif command -v pip &>/dev/null; then
-            pip install uv 2>/dev/null
+            pip install --user uv 2>/dev/null
         else
             fail "pip not found. Cannot install uv automatically."
             echo "  Install manually: pip install uv"

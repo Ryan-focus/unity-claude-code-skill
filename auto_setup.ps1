@@ -169,7 +169,7 @@ function Setup-Coplay {
     } catch {
         Write-Info "uvx not found. Installing uv..."
         try {
-            pip install uv 2>$null
+            pip install --user uv 2>$null
             Get-Command uvx -ErrorAction Stop | Out-Null
             Write-Pass "uvx installed successfully"
         } catch {

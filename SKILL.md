@@ -39,6 +39,7 @@ bash auto_setup.sh --path unity    # Force Unity Official MCP
 ```
 
 **Options:**
+
 - `--force` / `-Force` — Remove existing config before re-adding
 - `--timeout <ms>` / `-Timeout <ms>` — Custom timeout (default: 720000)
 
@@ -120,6 +121,7 @@ Verify the target MCP server (unity-mcp or coplay-mcp) is listed.
 ### Step 2 — Test MCP connection
 
 Try a simple tool call:
+
 - **Coplay:** `list_editors` — should return open Unity instances
 - **Unity Official:** `Unity_ReadConsole` — should return console messages
 
@@ -168,7 +170,8 @@ Read `unity_operations.md` for the complete tool reference and code templates.
 ### Scene Management
 
 **Create a new scene:**
-```
+
+```text
 1. execute_menu_item("File/New Scene")
 2. Save via run_code:
    EditorSceneManager.SaveScene(
@@ -176,32 +179,37 @@ Read `unity_operations.md` for the complete tool reference and code templates.
 ```
 
 **Get scene contents:**
-```
+
+```text
 get_scene_hierarchy  →  returns full object tree
 ```
 
 **Save scene:**
-```
+
+```text
 execute_menu_item("File/Save")
 ```
 
 ### GameObject Operations
 
 **Create primitives (Cube, Sphere, Capsule, Plane, Cylinder):**
-```
+
+```text
 create_primitive("Cube", name="MyCube")
 set_component_property("MyCube", "Transform", "position", {x:0, y:1, z:0})
 ```
 
 **Create hierarchy:**
-```
+
+```text
 1. Create parent: create_gameobject("Player")
 2. Create children and parent them under Player
 3. Set transforms for each child
 ```
 
 **Add components:**
-```
+
+```text
 add_component("Player", "Rigidbody")
 add_component("Player", "CharacterController")
 set_component_property("Player", "Rigidbody", "mass", 2.0)
@@ -232,6 +240,7 @@ public class PlayerController : MonoBehaviour {
 ```
 
 Common script patterns (see `unity_operations.md` for full templates):
+
 - **PlayerController** — WASD movement with CharacterController
 - **GameManager** — Singleton pattern with DontDestroyOnLoad
 - **HealthBarUI** — Slider-based UI with color gradient
@@ -278,12 +287,14 @@ run_code(@"
 ### Debugging
 
 **Read console messages:**
-```
+
+```text
 get_console_logs  or  Unity_ReadConsole
 → Summarize errors and warnings, suggest fixes
 ```
 
 **Find missing scripts:**
+
 ```csharp
 run_code(@"
     foreach (var go in Resources.FindObjectsOfTypeAll<GameObject>()) {

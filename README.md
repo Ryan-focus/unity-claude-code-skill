@@ -97,6 +97,7 @@ cd "$env:USERPROFILE\.claude\skills\unity-claude-code-setup"
 ```
 
 **Options:**
+
 - `--force` / `-Force` — Remove existing MCP config before re-adding
 - `--timeout <ms>` / `-Timeout <ms>` — Custom timeout (default: 720000ms)
 - `--coplay-version <ver>` / `-CoplayVersion <ver>` — Coplay server version
@@ -106,10 +107,12 @@ cd "$env:USERPROFILE\.claude\skills\unity-claude-code-setup"
 Once installed and connected, just talk to Claude Code naturally:
 
 **Setup:**
+
 - *"Help me set up Claude Code with Unity"*
 - *"Connect my Unity project to Claude Code via MCP"*
 
 **Operations:**
+
 - *"Create a new scene called GameLevel"*
 - *"Add a red cube at position (0, 2, 0)"*
 - *"Create a PlayerController script with WASD movement"*
@@ -117,11 +120,13 @@ Once installed and connected, just talk to Claude Code naturally:
 - *"Check the Unity console for errors"*
 
 **Rapid prototyping:**
+
 - *"Help me prototype a ball-rolling game"*
 - *"Create a basic 2D platformer"*
 - *"Build a main menu UI system"*
 
 **Diagnostics:**
+
 - *"The MCP connection isn't working, help me fix it"*
 - *"Run diagnostics on my Unity setup"*
 
@@ -147,6 +152,11 @@ Once installed and connected, just talk to Claude Code naturally:
 PRs welcome! If you find a step that's outdated or want to add support for
 Linux or another MCP client (Cursor, Windsurf, etc.), feel free to open an
 issue or submit a pull request.
+
+> **Note on i18n:** The translations under `i18n/` currently reflect the
+> original setup-guide version of this skill. They have not yet been updated
+> to cover the new auto-setup scripts, operations guide, or rapid prototyping
+> workflows. Contributions to update them are especially welcome.
 
 ## License
 
