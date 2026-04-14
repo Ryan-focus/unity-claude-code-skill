@@ -4,17 +4,20 @@
 
 **macOS/Linux：**
 原生安装程序会自动将 `claude` 添加到你的 PATH。如果安装后仍未找到，请重启终端或运行：
+
 ```bash
 source ~/.bashrc   # 或 ~/.zshrc
 ```
 
 **Windows：**
 确保已安装 Git for Windows（原生安装程序需要）。安装后重启 PowerShell。如果仍然缺失，请尝试：
+
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
 
 如果你是通过 npm 安装的（已弃用），请确保全局 npm bin 目录在 PATH 中：
+
 ```bash
 npm config get prefix
 # 将 <prefix>/bin 添加到你的 PATH
@@ -71,12 +74,14 @@ npm config get prefix
 ## 大型操作的超时错误
 
 **Coplay MCP：** 通过移除并使用更大的超时值重新添加来增加超时时间：
+
 ```bash
 claude mcp remove coplay-mcp
 claude mcp add --scope user --transport stdio coplay-mcp \
   --env MCP_TOOL_TIMEOUT=1800000 \
   -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
 ```
+
 （1800000ms = 30 分钟）
 
 **Unity Official MCP：** 超时由 relay binary 管理。如果遇到问题，请检查 Unity 控制台中的错误，并确保项目不处于大量编译状态。
@@ -102,7 +107,7 @@ claude mcp add --scope user --transport stdio coplay-mcp \
 
 ## 仍然遇到问题？
 
-- Unity Official MCP：https://docs.unity3d.com/Packages/com.unity.ai.assistant@2.0/manual/unity-mcp-troubleshooting.html
-- Coplay MCP：https://docs.coplay.dev/essentials/troubleshooting
-- Claude Code：https://code.claude.com/docs/en/troubleshooting
-- CoplayDev/unity-mcp GitHub Issues：https://github.com/CoplayDev/unity-mcp/issues
+- Unity Official MCP：<https://docs.unity3d.com/Packages/com.unity.ai.assistant@2.0/manual/unity-mcp-troubleshooting.html>
+- Coplay MCP：<https://docs.coplay.dev/essentials/troubleshooting>
+- Claude Code：<https://code.claude.com/docs/en/troubleshooting>
+- CoplayDev/unity-mcp GitHub Issues：<https://github.com/CoplayDev/unity-mcp/issues>

@@ -19,7 +19,7 @@
 
 ## 儲存庫結構
 
-```
+```text
 unity-claude-code-skill/
 ├── SKILL.md                        # 核心 Skill 指令（由 Claude Code 自動載入）
 ├── README.md                       # 本檔案
@@ -71,11 +71,13 @@ Claude Code 會自動載入此 Skill 並引導您完成整個流程。
 設定完成後，您可以驗證一切是否就緒：
 
 **macOS/Linux：**
+
 ```bash
 bash ~/.claude/skills/unity-claude-code-setup/scripts/verify_setup.sh
 ```
 
 **Windows（PowerShell）：**
+
 ```powershell
 . "$env:USERPROFILE\.claude\skills\unity-claude-code-setup\scripts\verify_setup.ps1"
 ```

@@ -37,17 +37,20 @@ description: >
 Claude Code는 유료 Anthropic 플랜(Pro, Max, Team 또는 Enterprise)이 필요합니다.
 
 **macOS / Linux:**
+
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
 > Windows에서는 **Git for Windows**도 설치되어 있어야 합니다.
 
 **확인:**
+
 ```bash
 claude --version
 ```
@@ -68,7 +71,7 @@ claude --version
 Unity에서 **Window > Package Manager**로 이동하고, **+** 를 클릭한 후
 **Add package by name**을 선택하여 다음을 입력합니다:
 
-```
+```text
 com.unity.ai.assistant
 ```
 
@@ -89,6 +92,7 @@ Unity의 **Project Settings > AI > Unity MCP > Integrations**에서
 **옵션 2 – 수동 구성:**
 
 터미널에서 실행합니다:
+
 ```bash
 claude mcp add unity-mcp -- <RELAY_PATH> --mcp
 ```
@@ -111,7 +115,8 @@ claude mcp add unity-mcp -- <RELAY_PATH> --mcp
 ### A5. 테스트
 
 Claude Code에서 다음을 시도하세요:
-```
+
+```text
 Read the Unity console messages and summarize any warnings or errors.
 ```
 
@@ -126,6 +131,7 @@ Claude가 `Unity_ReadConsole`를 호출할 수 있다면 설정이 완료된 것
 Coplay의 MCP 서버는 Python 3.11 이상이 필요합니다.
 
 **확인:**
+
 ```bash
 python3 --version   # macOS/Linux
 python --version    # Windows
@@ -133,14 +139,15 @@ python --version    # Windows
 
 설치되어 있지 않은 경우:
 - macOS: `brew install python@3.11`
-- Windows: https://www.python.org/downloads/ 에서 다운로드
+- Windows: <https://www.python.org/downloads/> 에서 다운로드
 
 ### B2. Coplay Unity 패키지 설치
 
 1. Unity 프로젝트를 엽니다.
 2. **Window > Package Manager > + > Add package from git URL**을 선택합니다.
 3. 다음을 입력합니다:
-   ```
+
+   ```text
    https://github.com/CoplayDev/unity-plugin.git#beta
    ```
 4. Coplay가 Editor에서 활성화되어 실행 중인지 확인합니다.
@@ -170,12 +177,14 @@ claude mcp list
 ### B5. 테스트
 
 Unity 프로젝트를 연 후, Claude Code에서 다음을 시도하세요:
-```
+
+```text
 List all open Unity editors
 ```
 
 그런 다음:
-```
+
+```text
 Create a red cube at position (0, 1, 0) in the current Unity scene
 ```
 

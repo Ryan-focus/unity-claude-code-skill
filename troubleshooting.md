@@ -5,6 +5,7 @@
 **macOS/Linux:**
 The native installer adds `claude` to your PATH automatically. If it's still
 not found after installation, restart your terminal or run:
+
 ```bash
 source ~/.bashrc   # or ~/.zshrc
 ```
@@ -12,11 +13,13 @@ source ~/.bashrc   # or ~/.zshrc
 **Windows:**
 Make sure Git for Windows is installed (required for the native installer).
 Restart PowerShell after installation. If still missing, try:
+
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
 
 If you installed via npm (deprecated), ensure your global npm bin is on PATH:
+
 ```bash
 npm config get prefix
 # Add <prefix>/bin to your PATH
@@ -27,6 +30,7 @@ npm config get prefix
 ## MCP server not connecting / stuck on "connecting"
 
 ### Path A (Unity Official MCP)
+
 1. Confirm Unity Bridge is **Running** in Project Settings > AI > Unity MCP.
 2. Verify the relay binary exists at `~/.unity/relay/`.
 3. Re-run the Configure step or manually re-add:
@@ -37,6 +41,7 @@ npm config get prefix
 4. Restart Claude Code.
 
 ### Path B (Coplay MCP)
+
 1. Verify Python ≥ 3.11: `python3 --version`
 2. Remove and re-add:
    ```bash
@@ -64,6 +69,7 @@ may not inherit your shell PATH. This means `claude` might not be found by
 Unity's internal processes.
 
 **Solutions:**
+
 1. Launch Unity Hub from Terminal so PATH propagates:
    ```bash
    open -a "Unity Hub"
@@ -78,6 +84,7 @@ Unity's internal processes.
 
 **Coplay MCP:** Increase the timeout by removing and re-adding with a higher
 value:
+
 ```bash
 claude mcp remove coplay-mcp
 claude mcp add --scope user --transport stdio coplay-mcp \
@@ -114,7 +121,7 @@ to stdio), you **must restart Claude Code** for it to pick up the change.
 
 ## Still stuck?
 
-- Unity Official MCP: https://docs.unity3d.com/Packages/com.unity.ai.assistant@2.0/manual/unity-mcp-troubleshooting.html
-- Coplay MCP: https://docs.coplay.dev/essentials/troubleshooting
-- Claude Code: https://code.claude.com/docs/en/troubleshooting
-- CoplayDev/unity-mcp GitHub Issues: https://github.com/CoplayDev/unity-mcp/issues
+- Unity Official MCP: <https://docs.unity3d.com/Packages/com.unity.ai.assistant@2.0/manual/unity-mcp-troubleshooting.html>
+- Coplay MCP: <https://docs.coplay.dev/essentials/troubleshooting>
+- Claude Code: <https://code.claude.com/docs/en/troubleshooting>
+- CoplayDev/unity-mcp GitHub Issues: <https://github.com/CoplayDev/unity-mcp/issues>

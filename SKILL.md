@@ -39,17 +39,21 @@ Before either path, make sure these are in place:
 Claude Code requires a paid Anthropic plan (Pro, Max, Team, or Enterprise).
 
 **macOS / Linux:**
+
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
+
 > Windows also requires **Git for Windows** to be installed.
 
 **Verify:**
+
 ```bash
 claude --version
 ```
@@ -70,7 +74,7 @@ After first launch, run `claude` and follow the browser prompts to authenticate.
 In Unity, go to **Window > Package Manager**, click **+**, choose
 **Add package by name**, and enter:
 
-```
+```text
 com.unity.ai.assistant
 ```
 
@@ -91,6 +95,7 @@ In Unity's **Project Settings > AI > Unity MCP > Integrations**, find
 **Option 2 – Manual:**
 
 Run in terminal:
+
 ```bash
 claude mcp add unity-mcp -- <RELAY_PATH> --mcp
 ```
@@ -113,7 +118,8 @@ Previously approved clients reconnect automatically.
 ### A5. Test
 
 In Claude Code, try:
-```
+
+```text
 Read the Unity console messages and summarize any warnings or errors.
 ```
 
@@ -128,23 +134,27 @@ If Claude can invoke `Unity_ReadConsole`, the setup is complete.
 Coplay's MCP server requires Python ≥ 3.11.
 
 **Verify:**
+
 ```bash
 python3 --version   # macOS/Linux
 python --version    # Windows
 ```
 
 If not installed:
+
 - macOS: `brew install python@3.11`
-- Windows: download from https://www.python.org/downloads/
+- Windows: download from <https://www.python.org/downloads/>
 
 ### B2. Install the Coplay Unity package
 
 1. Open your Unity project.
 2. **Window > Package Manager > + > Add package from git URL**
 3. Enter:
-   ```
+
+   ```text
    https://github.com/CoplayDev/unity-plugin.git#beta
    ```
+
 4. Ensure Coplay is enabled and running in the Editor.
 
 ### B3. Add Coplay MCP to Claude Code
@@ -172,12 +182,14 @@ You should see `coplay-mcp` in the list.
 ### B5. Test
 
 Open your Unity project, then in Claude Code:
-```
+
+```text
 List all open Unity editors
 ```
 
 Then try:
-```
+
+```text
 Create a red cube at position (0, 1, 0) in the current Unity scene
 ```
 

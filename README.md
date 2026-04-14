@@ -25,7 +25,7 @@ troubleshooting for both **Windows** and **macOS**.
 
 ## Repo Structure
 
-```
+```text
 unity-claude-code-skill/
 ├── SKILL.md                        # Core skill instructions (auto-loaded by Claude Code)
 ├── README.md                       # This file
@@ -81,11 +81,13 @@ Claude Code will automatically load this skill and walk you through the process.
 After setup, you can verify everything is in place:
 
 **macOS/Linux:**
+
 ```bash
 bash ~/.claude/skills/unity-claude-code-setup/scripts/verify_setup.sh
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 . "$env:USERPROFILE\.claude\skills\unity-claude-code-setup\scripts\verify_setup.ps1"
 ```

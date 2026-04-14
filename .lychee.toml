@@ -1,0 +1,14 @@
+# Lychee link checker configuration
+# https://lychee.cli.rs/usage/config/
+
+# Exclude URLs with placeholder text like <your-username>
+exclude = [
+  "<your-username>",
+  "127\\.0\\.0\\.1",
+]
+
+# Accept 429 (rate limiting) as valid
+accept = [200, 429]
+
+# Don't check mailto links
+exclude_mail = true
