@@ -65,6 +65,7 @@ npm config get prefix
 Finder や Unity Hub から（ターミナルからではなく）Unity を起動した場合、Editor がシェルの PATH を引き継がないことがあります。これにより、Unity の内部プロセスが `claude` を見つけられない場合があります。
 
 **解決策：**
+
 1. ターミナルから Unity Hub を起動して PATH を引き継がせます：
    ```bash
    open -a "Unity Hub"

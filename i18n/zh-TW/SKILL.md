@@ -35,17 +35,21 @@ description: >
 Claude Code 需要付費的 Anthropic 方案（Pro、Max、Team 或 Enterprise）。
 
 **macOS / Linux：**
+
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 **Windows（PowerShell）：**
+
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
+
 > Windows 還需要安裝 **Git for Windows**。
 
 **驗證：**
+
 ```bash
 claude --version
 ```
@@ -66,7 +70,7 @@ claude --version
 在 Unity 中，前往 **Window > Package Manager**，點選 **+**，選擇
 **Add package by name**，然後輸入：
 
-```
+```text
 com.unity.ai.assistant
 ```
 
@@ -87,6 +91,7 @@ relay binary 會自動安裝至 `~/.unity/relay/`。
 **選項 2 – 手動設定：**
 
 在終端機中執行：
+
 ```bash
 claude mcp add unity-mcp -- <RELAY_PATH> --mcp
 ```
@@ -109,7 +114,8 @@ claude mcp add unity-mcp -- <RELAY_PATH> --mcp
 ### A5. 測試
 
 在 Claude Code 中嘗試：
-```
+
+```text
 Read the Unity console messages and summarize any warnings or errors.
 ```
 
@@ -124,23 +130,27 @@ Read the Unity console messages and summarize any warnings or errors.
 Coplay 的 MCP 伺服器需要 Python ≥ 3.11。
 
 **驗證：**
+
 ```bash
 python3 --version   # macOS/Linux
 python --version    # Windows
 ```
 
 如果尚未安裝：
+
 - macOS：`brew install python@3.11`
-- Windows：從 https://www.python.org/downloads/ 下載
+- Windows：從 <https://www.python.org/downloads/> 下載
 
 ### B2. 安裝 Coplay Unity 套件
 
 1. 開啟您的 Unity 專案。
 2. **Window > Package Manager > + > Add package from git URL**
 3. 輸入：
-   ```
+
+   ```text
    https://github.com/CoplayDev/unity-plugin.git#beta
    ```
+
 4. 確認 Coplay 在 Editor 中已啟用且正在運行。
 
 ### B3. 將 Coplay MCP 新增至 Claude Code
@@ -168,12 +178,14 @@ claude mcp list
 ### B5. 測試
 
 開啟您的 Unity 專案，然後在 Claude Code 中輸入：
-```
+
+```text
 List all open Unity editors
 ```
 
 接著嘗試：
-```
+
+```text
 Create a red cube at position (0, 1, 0) in the current Unity scene
 ```
 
