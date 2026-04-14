@@ -1,3 +1,5 @@
+> **Language / 語言:** English | [한국어](i18n/ko/README.md) | [日本語](i18n/ja/README.md) | [繁體中文](i18n/zh-TW/README.md) | [简体中文](i18n/zh-CN/README.md)
+
 # unity-claude-code-skill
 
 A **Claude Code Custom Skill** that guides users through setting up Claude Code
@@ -23,16 +25,20 @@ troubleshooting for both **Windows** and **macOS**.
 
 ## Repo Structure
 
-```
+```text
 unity-claude-code-skill/
 ├── SKILL.md                        # Core skill instructions (auto-loaded by Claude Code)
 ├── README.md                       # This file
 ├── LICENSE                         # MIT
-├── scripts/
-│   ├── verify_setup.sh             # macOS/Linux prerequisite checker
-│   └── verify_setup.ps1            # Windows prerequisite checker
-└── references/
-    └── troubleshooting.md          # Common issues & fixes
+├── verify_setup.sh                 # macOS/Linux prerequisite checker
+├── verify_setup.ps1                # Windows prerequisite checker
+├── troubleshooting.md              # Common issues & fixes
+├── .github/workflows/ci.yml        # CI: markdown lint, shellcheck, link check
+└── i18n/                           # Translations
+    ├── ko/                         # 한국어 (Korean)
+    ├── ja/                         # 日本語 (Japanese)
+    ├── zh-TW/                      # 繁體中文 (Traditional Chinese)
+    └── zh-CN/                      # 简体中文 (Simplified Chinese)
 ```
 
 ## Quick Install
@@ -75,11 +81,13 @@ Claude Code will automatically load this skill and walk you through the process.
 After setup, you can verify everything is in place:
 
 **macOS/Linux:**
+
 ```bash
 bash ~/.claude/skills/unity-claude-code-setup/scripts/verify_setup.sh
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 . "$env:USERPROFILE\.claude\skills\unity-claude-code-setup\scripts\verify_setup.ps1"
 ```

@@ -1,0 +1,13 @@
+# Markdownlint configuration
+# https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml
+
+# MD013 - Line length: disabled because markdown with URLs, tables, and
+# language switcher links regularly exceeds 80 characters.
+MD013: false
+
+# MD041 - First line should be a heading: disabled because i18n files
+# start with a language switcher blockquote.
+MD041: false
+
+# MD060 - Table column style: disabled to allow compact table formatting.
+MD060: false
