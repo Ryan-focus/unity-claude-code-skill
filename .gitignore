@@ -27,3 +27,6 @@ venv/
 
 # Build artifacts
 *.log
+
+# Claude Code
+.claude/

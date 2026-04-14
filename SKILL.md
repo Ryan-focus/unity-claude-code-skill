@@ -43,6 +43,34 @@ bash auto_setup.sh --path unity    # Force Unity Official MCP
 - `--force` / `-Force` — Remove existing config before re-adding
 - `--timeout <ms>` / `-Timeout <ms>` — Custom timeout (default: 720000)
 
+### Verify Prerequisites
+
+Before running setup (or when troubleshooting), use the verification scripts to
+check that all required tools are installed and configured:
+
+**macOS / Linux:**
+
+```bash
+bash verify_setup.sh
+```
+
+**Windows (PowerShell):**
+
+```powershell
+.\verify_setup.ps1
+```
+
+These scripts check:
+
+- **Claude Code** is installed and reachable
+- **Git** is available (Windows only — required for Claude Code)
+- **Python >= 3.11** is installed (required for Coplay MCP / Path B)
+- **uvx** is installed (required for Coplay MCP / Path B)
+- **Unity relay binary** exists at `~/.unity/relay` (required for Unity Official MCP / Path A)
+- **Configured MCP servers** via `claude mcp list`
+
+Each check reports PASS, WARN, or FAIL with actionable install instructions.
+
 ### Path A vs Path B
 
 | | Path A — Unity Official MCP | Path B — Coplay MCP |
