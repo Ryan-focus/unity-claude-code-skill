@@ -1,10 +1,14 @@
 name: Update Repository Description
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-description.yml'
 
 permissions:
   administration: write
+  contents: write
 
 jobs:
   update-description:
@@ -27,13 +31,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Get the SHA of the workflow file
             const { data } = await github.rest.repos.getContent({
               owner: context.repo.owner,
               repo: context.repo.repo,
               path: '.github/workflows/update-description.yml'
             });
-            // Delete the workflow file after it runs
             await github.rest.repos.deleteFile({
               owner: context.repo.owner,
               repo: context.repo.repo,
