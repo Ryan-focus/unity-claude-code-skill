@@ -34,22 +34,26 @@ npm config get prefix
 1. Confirm Unity Bridge is **Running** in Project Settings > AI > Unity MCP.
 2. Verify the relay binary exists at `~/.unity/relay/`.
 3. Re-run the Configure step or manually re-add:
+
    ```bash
    claude mcp remove unity-mcp
    claude mcp add unity-mcp -- <RELAY_PATH> --mcp
    ```
+
 4. Restart Claude Code.
 
 ### Path B (Coplay MCP)
 
 1. Verify Python ≥ 3.11: `python3 --version`
 2. Remove and re-add:
+
    ```bash
    claude mcp remove coplay-mcp
    claude mcp add --scope user --transport stdio coplay-mcp \
      --env MCP_TOOL_TIMEOUT=720000 \
      -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
    ```
+
 3. Restart Claude Code.
 
 ---
@@ -71,9 +75,11 @@ Unity's internal processes.
 **Solutions:**
 
 1. Launch Unity Hub from Terminal so PATH propagates:
+
    ```bash
    open -a "Unity Hub"
    ```
+
 2. In Unity MCP settings, use the "Choose Claude Install Location" option to
    set the absolute path to the `claude` binary (e.g., `/usr/local/bin/claude`
    or the path shown by `which claude`).
@@ -91,6 +97,7 @@ claude mcp add --scope user --transport stdio coplay-mcp \
   --env MCP_TOOL_TIMEOUT=1800000 \
   -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
 ```
+
 (1800000ms = 30 minutes)
 
 **Unity Official MCP:** Timeout is managed by the relay binary. If you
@@ -104,9 +111,11 @@ isn't in a heavy compilation state.
 - If you see `The token '&&' is not a valid statement separator`, you're in
   PowerShell. Use `;` instead of `&&`, or run commands one at a time.
 - If `uvx` is not recognized, install it first:
+
   ```powershell
   pip install uv
   ```
+
 - Make sure Python is added to your system PATH during installation (check the
   box in the Python installer).
 

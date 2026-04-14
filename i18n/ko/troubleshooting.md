@@ -30,6 +30,7 @@ npm config get prefix
 ## MCP 서버가 연결되지 않음 / "connecting" 상태에서 멈춤
 
 ### 경로 A (Unity 공식 MCP)
+
 1. Project Settings > AI > Unity MCP에서 Unity Bridge가 **Running** 상태인지 확인합니다.
 2. relay binary가 `~/.unity/relay/`에 존재하는지 확인합니다.
 3. Configure 단계를 다시 실행하거나 수동으로 재추가합니다:
@@ -38,9 +39,11 @@ npm config get prefix
    claude mcp remove unity-mcp
    claude mcp add unity-mcp -- <RELAY_PATH> --mcp
    ```
+
 4. Claude Code를 재시작합니다.
 
 ### 경로 B (Coplay MCP)
+
 1. Python 3.11 이상인지 확인합니다: `python3 --version`
 2. 제거 후 재추가합니다:
 
@@ -50,6 +53,7 @@ npm config get prefix
      --env MCP_TOOL_TIMEOUT=720000 \
      -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
    ```
+
 3. Claude Code를 재시작합니다.
 
 ---
@@ -67,11 +71,13 @@ npm config get prefix
 Finder 또는 Unity Hub(터미널이 아닌)에서 Unity를 실행하면, Editor가 셸의 PATH를 상속받지 못할 수 있습니다. 이 경우 Unity의 내부 프로세스에서 `claude`를 찾지 못할 수 있습니다.
 
 **해결 방법:**
+
 1. PATH가 전달되도록 터미널에서 Unity Hub를 실행합니다:
 
    ```bash
    open -a "Unity Hub"
    ```
+
 2. Unity MCP 설정에서 "Choose Claude Install Location" 옵션을 사용하여
    `claude` 바이너리의 절대 경로를 설정합니다 (예: `/usr/local/bin/claude`
    또는 `which claude`로 확인한 경로).
@@ -88,6 +94,7 @@ claude mcp add --scope user --transport stdio coplay-mcp \
   --env MCP_TOOL_TIMEOUT=1800000 \
   -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
 ```
+
 (1800000ms = 30분)
 
 **Unity 공식 MCP:** 타임아웃은 relay binary에서 관리됩니다. 문제가 발생하면 Unity 콘솔에서 오류를 확인하고 프로젝트가 과도한 컴파일 상태가 아닌지 확인하세요.
@@ -102,6 +109,7 @@ claude mcp add --scope user --transport stdio coplay-mcp \
   ```powershell
   pip install uv
   ```
+
 - Python 설치 시 시스템 PATH에 추가되었는지 확인하세요 (Python 설치 프로그램에서 해당 체크박스를 선택).
 
 ---

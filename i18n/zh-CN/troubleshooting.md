@@ -28,24 +28,30 @@ npm config get prefix
 ## MCP 服务器无法连接 / 卡在"connecting"状态
 
 ### 路径 A（Unity Official MCP）
+
 1. 确认 Unity Bridge 在 Project Settings > AI > Unity MCP 中状态为 **Running**。
 2. 验证 relay binary 是否存在于 `~/.unity/relay/`。
 3. 重新执行配置步骤，或手动重新添加：
+
    ```bash
    claude mcp remove unity-mcp
    claude mcp add unity-mcp -- <RELAY_PATH> --mcp
    ```
+
 4. 重启 Claude Code。
 
 ### 路径 B（Coplay MCP）
+
 1. 验证 Python ≥ 3.11：`python3 --version`
 2. 移除并重新添加：
+
    ```bash
    claude mcp remove coplay-mcp
    claude mcp add --scope user --transport stdio coplay-mcp \
      --env MCP_TOOL_TIMEOUT=720000 \
      -- uvx --python ">=3.11" coplay-mcp-server@1.5.5
    ```
+
 3. 重启 Claude Code。
 
 ---
@@ -63,10 +69,13 @@ npm config get prefix
 当你通过 Finder 或 Unity Hub（而非终端）启动 Unity 时，编辑器可能无法继承你的 shell PATH。这意味着 Unity 的内部进程可能找不到 `claude`。
 
 **解决方案：**
+
 1. 从终端启动 Unity Hub，使 PATH 得以传递：
+
    ```bash
    open -a "Unity Hub"
    ```
+
 2. 在 Unity MCP 设置中，使用"Choose Claude Install Location"选项设置 `claude` 二进制文件的绝对路径（例如 `/usr/local/bin/claude` 或 `which claude` 显示的路径）。
 
 ---
@@ -92,9 +101,11 @@ claude mcp add --scope user --transport stdio coplay-mcp \
 
 - 如果看到 `The token '&&' is not a valid statement separator` 错误，说明你在 PowerShell 中。请使用 `;` 代替 `&&`，或逐条运行命令。
 - 如果 `uvx` 未被识别，请先安装：
+
   ```powershell
   pip install uv
   ```
+
 - 确保在安装 Python 时已将其添加到系统 PATH（在 Python 安装程序中勾选该选项）。
 
 ---

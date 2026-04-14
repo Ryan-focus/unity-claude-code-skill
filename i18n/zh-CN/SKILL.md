@@ -137,6 +137,7 @@ python --version    # Windows
 ```
 
 如果未安装：
+
 - macOS：`brew install python@3.11`
 - Windows：从 <https://www.python.org/downloads/> 下载
 
@@ -149,6 +150,7 @@ python --version    # Windows
    ```text
    https://github.com/CoplayDev/unity-plugin.git#beta
    ```
+
 4. 确保 Coplay 在编辑器中已启用并正在运行。
 
 ### B3. 将 Coplay MCP 添加到 Claude Code

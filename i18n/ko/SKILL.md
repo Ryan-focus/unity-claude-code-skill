@@ -47,6 +47,7 @@ curl -fsSL https://claude.ai/install.sh | bash
 ```powershell
 irm https://claude.ai/install.ps1 | iex
 ```
+
 > Windows에서는 **Git for Windows**도 설치되어 있어야 합니다.
 
 **확인:**
@@ -138,6 +139,7 @@ python --version    # Windows
 ```
 
 설치되어 있지 않은 경우:
+
 - macOS: `brew install python@3.11`
 - Windows: <https://www.python.org/downloads/> 에서 다운로드
 
@@ -150,6 +152,7 @@ python --version    # Windows
    ```text
    https://github.com/CoplayDev/unity-plugin.git#beta
    ```
+
 4. Coplay가 Editor에서 활성화되어 실행 중인지 확인합니다.
 
 ### B3. Claude Code에 Coplay MCP 추가
